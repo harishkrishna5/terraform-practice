@@ -26,4 +26,5 @@ jobs:
 
       - name: Deploy with Terraform (or AWS CLI)
         run: |
-          sudo aws s3 ls
+           terraform init
+           terraform apply -auto-approve
