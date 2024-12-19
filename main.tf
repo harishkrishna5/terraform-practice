@@ -89,7 +89,7 @@ resource "aws_security_group" "allow_https" {
   }
 }
 resource "aws_instance" "web_server" {
-  ami           = "ami-0c55b159cbfafe1f0"  # Use the appropriate AMI ID for your region (Amazon Linux 2)
+  ami           = "ami-05d38da78ce859165"  # Use the appropriate AMI ID for your region (Amazon Linux 2)
   instance_type = "t2.micro"               # Use the appropriate instance type
   key_name      = "new-key.pem"           # Replace with your SSH key name
 
