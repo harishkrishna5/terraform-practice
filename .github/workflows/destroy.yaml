@@ -1,9 +1,7 @@
 name: Terraform Destroy
 
 on:
-  push:
-    branches:
-      - destroy  # This will trigger the destroy process on pushing to the destroy branch
+  workflow_dispatch:
 
 jobs:
   terraform-destroy:
