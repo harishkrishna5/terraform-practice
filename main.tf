@@ -106,6 +106,7 @@ resource "aws_instance" "web_server" {
   tags = {
     Name = "WebServer"
   }
+}
 
 
 # Outputs the public IP address of the EC2 instance
