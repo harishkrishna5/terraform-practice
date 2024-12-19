@@ -107,36 +107,6 @@ resource "aws_instance" "web_server" {
     Name = "WebServer"
   }
 
-  # Security Group to allow HTTP (port 80) and SSH (port 22)
-  security_groups = ["${aws_security_group.web_sg.name}"]
-}
-
-# Security group to allow HTTP and SSH
-resource "aws_security_group" "web_sg" {
-  name        = "web_sg"
-  description = "Allow HTTP and SSH access"
-  
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
 
 # Outputs the public IP address of the EC2 instance
 output "instance_public_ip" {
