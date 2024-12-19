@@ -88,3 +88,57 @@ resource "aws_security_group" "allow_https" {
     Name = "allow_https"
   }
 }
+resource "aws_instance" "web_server" {
+  ami           = "ami-0c55b159cbfafe1f0"  # Use the appropriate AMI ID for your region (Amazon Linux 2)
+  instance_type = "t2.micro"               # Use the appropriate instance type
+  key_name      = "new-key.pem"           # Replace with your SSH key name
+
+  # User data script to install Apache web server
+  user_data = <<-EOF
+              #!/bin/bash
+              yum update -y
+              yum install -y httpd
+              systemctl start httpd
+              systemctl enable httpd
+              echo "<html><h1>Welcome to my Web Server!</h1></html>" > /var/www/html/index.html
+              EOF
+
+  tags = {
+    Name = "WebServer"
+  }
+
+  # Security Group to allow HTTP (port 80) and SSH (port 22)
+  security_groups = ["${aws_security_group.web_sg.name}"]
+}
+
+# Security group to allow HTTP and SSH
+resource "aws_security_group" "web_sg" {
+  name        = "web_sg"
+  description = "Allow HTTP and SSH access"
+  
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+# Outputs the public IP address of the EC2 instance
+output "instance_public_ip" {
+  value = aws_instance.web_server.public_ip
+}
