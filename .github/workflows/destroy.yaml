@@ -25,4 +25,6 @@ jobs:
         
 
     - name: Run Destroy Script
-      run: bash destroy.sh
+      run: |
+        terraform init
+        terraform destroy
