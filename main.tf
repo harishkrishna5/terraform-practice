@@ -94,14 +94,7 @@ resource "aws_instance" "web_server" {
 #  key_name      = "new-key"           # Replace with your SSH key name
 
   # User data script to install Apache web server
-  user_data = <<-EOF
-              #!/bin/bash
-              yum update -y
-              yum install -y httpd
-              systemctl start httpd
-              systemctl enable httpd
-              echo "<html><h1>Welcome to my Web Server!</h1></html>" > /var/www/html/index.html
-              EOF
+  user_data = file ("script.sh")
 
   tags = {
     Name = "WebServer"
