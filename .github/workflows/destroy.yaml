@@ -24,7 +24,7 @@ jobs:
         terraform_version: 1.4.0
         
 
-    - name: Run Destroy Script
-      run: |
-        terraform init
-        terraform destroy
+   # - name: Run Destroy Script
+   #   run: |
+   #     terraform init
+   #     terraform destroy
