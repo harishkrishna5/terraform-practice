@@ -91,7 +91,7 @@ resource "aws_security_group" "allow_https" {
 resource "aws_instance" "web_server" {
   ami           = "ami-05d38da78ce859165"  # Use the appropriate AMI ID for your region (Amazon Linux 2)
   instance_type = "t2.micro"               # Use the appropriate instance type
-#  key_name      = "new-key"           # Replace with your SSH key name
+  key_name      = "demo"           # Replace with your SSH key name
 
   # User data script to install Apache web server
   user_data = file ("script.sh")
